@@ -40,6 +40,11 @@ NOT LIKE - doesnt show that record when searching
 WHERE 
   FilmeName = 'name of movie'
   
+*/Search Date using Date field/* 
+DAY (FilmReleaseDate)= '22'
+MONTH (FilmReleaseDate)='5'
+YEAR (FilmReleaseDate)='2018'
+
   
   ORDER BY
 */ ASC - Ascending  
