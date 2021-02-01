@@ -20,3 +20,29 @@ AS - Alias, also known as..  you dont have to write this , but good so you under
   
 FROM
   Table Name
+
+*/ WHERE STATEMENT ADDED UNDER FROM STATEMENT
+WHERE criteria:
+< lESS THAN
+> GREATHER THAN
+>= GREATH THAN OR EQUAL TOO
+<= LESS THAN OR EQUAL TOO
+<> not equaltoo
+BETWEEN value1  AND  value 2
+IN (10, 20.30)   -(range of numbers you want)
+
+Text Criterias
+LIKE - Add wildcard character % _
+NOT LIKE - doesnt show that record when searching
+
+/*
+
+WHERE 
+  FilmeName = 'name of movie'
+  
+  
+  ORDER BY
+*/ ASC - Ascending  
+DESC - Descending /*
+
+
