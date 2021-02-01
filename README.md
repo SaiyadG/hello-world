@@ -38,7 +38,16 @@ NOT LIKE - doesnt show that record when searching
 /*
 
 WHERE 
-  FilmeName = 'name of movie'
+*/ searching numerical/*
+  FilmRunTimeMinutes = 120   (check row 25 for criterias)
+  FilmRunTimeMinutes >= 120 
+  
+*/ search BETWEEN cetain range, see row 31/*
+  FilmRunTimeMinutes BETWEEN 120 AND 150
+
+*/ Using IN () to search for only those numbers /*
+  FilmRunTimeMinutes IN (10,50,100,180)
+  
   
 */Search Date using Date field/* 
 DAY (FilmReleaseDate)= '22'
