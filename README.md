@@ -1,87 +1,86 @@
-# hello-world
+Extract SF36 GOLMEPSA Codes
 
-Tutorial - Create New Repo
+USE [SSD_GOLMePsA]
+GO 
 
-SAMPLE BASIC CODING
+WITH Max_ver AS
+(
+SELECT 
+ *
+FROM (SELECT
+    ROW_NUMBER() OVER(PARTITION BY PatientStudyID, VisitDate, VisitNumber, AppointmentType 
+          ORDER BY DateCreated DESC, PatientStudyID,
+          VisitDate, VisitNumber) AS rownum, ID, PatientStudyID, VisitNumber, VisitDate, AppointmentType, DateCreated
+          FROM [SSD_GOLMePsA].[dbo].[tblAppointment]) AS A
+		  WHERE rownum = 1
+)
 
-USE Movies (Database)
+SELECT 
 
-SELECT
-/* TAB KEY-  Name of Column -   
-AS - Alias, also known as..  you dont have to write this , but good so you understand the flow of code*/
-
-  FilmName TITLE,
-  Film Duration 'Released on' ,
+	   CAST (B.[PatientStudyID] AS INT) AS PatientStudyID
+      ,CASE 
+      		WHEN B.VisitNumber = '1 - SCR' THEN 1
+      		WHEN B.VisitNumber = '2 - BSL' THEN 2
+			 WHEN B.VisitNumber = '3 - WK 4' THEN 3
+      		WHEN B.VisitNumber = '4 - WK 8' THEN 4
+			WHEN B.VisitNumber = '5 - WK 12' THEN 5
+      		WHEN B.VisitNumber = '6 - WK 16' THEN 6
+			WHEN B.VisitNumber = '7 - WK 20' THEN 7
+      		WHEN B.VisitNumber = '8 - WK 24' THEN 8
+      		WHEN B.VisitNumber = '9 - WK 28' THEN 9
+      		WHEN B.VisitNumber = '10 - WK 36' THEN 10
+      		WHEN B.VisitNumber = '11- WK 52' THEN 11
+      		WHEN B.VisitNumber = '98 - Ex' THEN 98
+      		WHEN B.VisitNumber = '99 - W' THEN 99
+      		      		
+			ELSE NULL END AS VisitNumber
+	
+	  ,B.[VisitDate]
+      ,B.[AppointmentType]
+   
+      ,C.[Question1]
+      ,C.[Question2]
+      ,C.[Question3a]
+      ,C.[Question3b]
+      ,C.[Question3c]
+      ,C.[Question3d]
+      ,C.[Question3e]
+      ,C.[Question3f]
+      ,C.[Question3g]
+      ,C.[Question3h]
+      ,C.[Question3i]
+      ,C.[Question3j]
+      ,C.[Question4a]
+      ,C.[Question4b]
+      ,C.[Question4c]
+      ,C.[Question4d]
+      ,C.[Question5a]
+      ,C.[Question5b]
+      ,C.[Question5c]
+      ,C.[Question6]
+      ,C.[Question7]
+      ,C.[Question8]
+      ,C.[Question9a]
+      ,C.[Question9b]
+      ,C.[Question9c]
+      ,C.[Question9d]
+      ,C.[Question9e]
+      ,C.[Question9f]
+      ,C.[Question9g]
+      ,C.[Question9h]
+      ,C.[Question9i]
+      ,C.[Question10]
+      ,C.[Question11a]
+      ,C.[Question11b]
+      ,C.[Question11c]
+     
+  FROM 
+  Max_ver AS A LEFT JOIN [SSD_GOLMePsA].[dbo].[tblAppointment] AS B ON A.ID = B.ID RIGHT JOIN 
+  [SSD_GOLMePsA].[dbo].[tblPatientSF36] AS C ON B.ID = C.AppointmentID
   
-  /* the above statemnent can also be written like
-  FilmName AS [TITLE],
-  Film Duration AS [Released On],
-  */
+  WHERE B.AppointmentType = 'Patient'
   
-FROM
-  Table Name
+  ORDER BY [PatientStudyID], [VisitNumber], VisitDate, AppointmentType
 
-WHERE 
-
-*/ WHERE STATEMENT ADDED UNDER FROM STATEMENT
-WHERE criteria:
-< lESS THAN
-> GREATHER THAN
->= GREATH THAN OR EQUAL TOO
-<= LESS THAN OR EQUAL TOO
-<> not equaltoo
-BETWEEN value1  AND  value 2
-IN (10, 20.30)   -(range of numbers you want)  /*
-
-*/ SEARCHING FOR NUMERICAL DATA/*
-
-  FilmRunTimeMinutes = 120   (check row 25 for criterias)
-  FilmRunTimeMinutes >= 120 
-  
-*/ search BETWEEN / AND  cetain range, see row 31/*
-
-  FilmRunTimeMinutes BETWEEN 120 AND 150
-
-*/ Using IN () to search for only those numbers /*
-
-  FilmRunTimeMinutes IN (10,50,100,180)
-  
-  */Search Date using Date field/* 
-DAY (FilmReleaseDate)= '22'
-MONTH (FilmReleaseDate)='5'
-YEAR (FilmReleaseDate)='2018'
-
-*/ 
-> - After date
-< - before date 
-/*
-  
- */ TEXT CRITERIAS in WHERE Claus /*
-
-*/ Searching by name /*
-
-WHERE
-  Filmname = 'Harry Potter'
-  
-*/USING WILDCARDS WITH Text
-LIKE - Add wildcard character % _
-NOT LIKE - doesnt show that record when searching/*
-
-WHERE
-  Filmname LIKE 'Harry Potter'  
-       */ add WILDCARD % __  /*
-       
-  Filmname LIKE 'Harry Potter%'  */ this will show all movies starting with Harry Potter followed by anything else after /*
-  Filmname LIKE '%Harry Potter%' */ this will show all movies with Harry Potter anywhere in the title /*
-  Filmname LIKE 'Harry Potter__' */ each individual underscore used represented space, character or number /*
-  
-*/ NOT LIKE, will not search that movie in the database, below query will show all movies except Harry Potter /*  
-
-WHERE
-  Filmname NOT LIKE '%Harry Potter%'
-  
-  ORDER BY
-*/ ASC - Ascending  
-DESC - Descending /*
 
 
